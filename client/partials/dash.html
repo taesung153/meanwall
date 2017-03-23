@@ -1,0 +1,32 @@
+<div ng-controller='sessionController'> 
+	<p>Welcome, {{curUser.name[0].toUpperCase() + curUser.name.slice(1)}}! <a href='/logout'>Logout</a></p>
+	<div ng-controller='messageController '>
+
+			<p ng-repeat='error in errors' style='color: red'>{{error}}</p>
+			<form ng-submit='addMessage(curUser._id)'>
+				<textarea ng-model='newMessage.content' placeholder="Add a message here."></textarea>
+				<input type='submit' value='submit'>
+			</form>
+			<p> You have {{144-newMessage.content.length}} chars left.</p>
+
+			<div ng-repeat='message in messages' style='border:thin solid black'>
+				<p>{{message._user.name[0].toUpperCase() + message._user.name.slice(1)}} Says:</p>
+				<p>{{message.content}}</p>
+					<div ng-controller='commentController'>
+						<form ng-submit='addComment(newComment, curUser._id, message._id)'>
+							<textarea ng-model='newComment.content' placeholder="Add a comment to this message here."></textarea>
+							<input type='submit' value='submit'>
+						</form>
+					</div>
+					<p>Replies:</p>
+					<div ng-repeat='comment in message._comments' style='border:thin solid black; margin-left:5em'>
+						<p>{{comment._user.name[0].toUpperCase() + comment._user.name.slice(1)}} 	responded:</p>
+						<p>{{comment.content}}</p>
+					</div>
+
+
+			</div>
+
+
+	</div>
+</div>
